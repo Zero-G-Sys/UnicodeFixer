@@ -14,6 +14,7 @@ namespace UnicodeFixer
             unicodeOrigin.SelectedIndex = 0; // Set defualt combobox as japanese
         }
 
+        // Returns Encoding code for language selected in combobox
         private int GetUnicodeCode()
         {
             int code = 932;
@@ -35,6 +36,8 @@ namespace UnicodeFixer
             return code;
         }
 
+        // Recieves broken text and restores it by chaging it to latin encode then to
+        // proper unicode
         private string RestoreUnicode(string text)
         {
             char[] str;
@@ -47,6 +50,8 @@ namespace UnicodeFixer
             return new string(str);
         }
 
+        // Calls RestoreUnicode method each time left richtextbox text is changed
+        // Prints result in right richtextbox
         private void brokenTextBox_TextChanged(object sender, EventArgs e)
         {
             try
@@ -59,6 +64,8 @@ namespace UnicodeFixer
             }
         }
 
+        // Button to call BetterFolderBrowser dialog
+        // Prints result in textbox and activates strat button
         private void selectFolderButton_Click(object sender, EventArgs e)
         {
             if (betterFolderBrowser1.ShowDialog(this) == DialogResult.OK)
@@ -68,23 +75,25 @@ namespace UnicodeFixer
             }
         }
 
+        // Get all files from selected folder and changes the name of files
+        // with bad unicode
         private void startButton_Click(object sender, EventArgs e)
         {
             try
             {
                 string originalFileName = "";
                 string restoredFileName = "";
-                string originalFileFullName = "";
 
                 DirectoryInfo d = new DirectoryInfo(selectedFolderTextbox.Text);
-                FileInfo[] infos = d.GetFiles("*", SearchOption.AllDirectories);
+                FileInfo[] infos = d.GetFiles("*", SearchOption.AllDirectories); // AllDirectories for subfolders
 
                 foreach (FileInfo f in infos)
                 {
                     originalFileName = f.Name;
                     restoredFileName = RestoreUnicode(f.Name);
-                    originalFileFullName = f.FullName;
 
+                    // If name changed (name had bad unicode) or
+                    // name doesn't have ? (trying to restore good unicode)
                     if (!originalFileName.Equals(restoredFileName) && !restoredFileName.Contains("?"))
                     {
                         File.Move(f.FullName, f.FullName.Replace(originalFileName, restoredFileName));
