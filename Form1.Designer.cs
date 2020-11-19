@@ -31,19 +31,19 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.fixedTextBox = new System.Windows.Forms.RichTextBox();
+            this.brokenTextBox = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.selectFolderButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.folderRenameOutput = new System.Windows.Forms.RichTextBox();
+            this.startButton = new System.Windows.Forms.Button();
             this.selectedFolderTextbox = new System.Windows.Forms.TextBox();
+            this.selectFolderButton = new System.Windows.Forms.Button();
             this.betterFolderBrowser1 = new WK.Libraries.BetterFolderBrowserNS.BetterFolderBrowser(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.unicodeOrigin = new System.Windows.Forms.ComboBox();
-            this.brokenTextBox = new System.Windows.Forms.RichTextBox();
-            this.fixedTextBox = new System.Windows.Forms.RichTextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.startButton = new System.Windows.Forms.Button();
-            this.folderRenameOutput = new System.Windows.Forms.RichTextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.toolTipHelpInfo = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -64,6 +64,45 @@
             this.groupBox1.Text = "Instant Convert";
             this.toolTipHelpInfo.SetToolTip(this.groupBox1, "Input text into the left textbox to restore it.");
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(343, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 15);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Fixed Text: ";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 15);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Broken text:";
+            // 
+            // fixedTextBox
+            // 
+            this.fixedTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.fixedTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.fixedTextBox.Location = new System.Drawing.Point(346, 37);
+            this.fixedTextBox.Name = "fixedTextBox";
+            this.fixedTextBox.ReadOnly = true;
+            this.fixedTextBox.Size = new System.Drawing.Size(329, 180);
+            this.fixedTextBox.TabIndex = 1;
+            this.fixedTextBox.Text = "";
+            // 
+            // brokenTextBox
+            // 
+            this.brokenTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.brokenTextBox.Location = new System.Drawing.Point(11, 37);
+            this.brokenTextBox.Name = "brokenTextBox";
+            this.brokenTextBox.Size = new System.Drawing.Size(329, 180);
+            this.brokenTextBox.TabIndex = 0;
+            this.brokenTextBox.Text = "";
+            this.brokenTextBox.TextChanged += new System.EventHandler(this.brokenTextBox_TextChanged);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label4);
@@ -80,6 +119,44 @@
             this.groupBox2.Text = "Folder Convert";
             this.toolTipHelpInfo.SetToolTip(this.groupBox2, "Restore filenames. Rename all files in selected folder and subfolders.");
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(10, 89);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(48, 15);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Output:";
+            // 
+            // folderRenameOutput
+            // 
+            this.folderRenameOutput.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.folderRenameOutput.Location = new System.Drawing.Point(10, 107);
+            this.folderRenameOutput.Name = "folderRenameOutput";
+            this.folderRenameOutput.ReadOnly = true;
+            this.folderRenameOutput.Size = new System.Drawing.Size(664, 190);
+            this.folderRenameOutput.TabIndex = 3;
+            this.folderRenameOutput.Text = "";
+            this.folderRenameOutput.TextChanged += new System.EventHandler(this.folderRenameOutput_TextChanged);
+            // 
+            // startButton
+            // 
+            this.startButton.Enabled = false;
+            this.startButton.Location = new System.Drawing.Point(6, 50);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(668, 32);
+            this.startButton.TabIndex = 2;
+            this.startButton.Text = "Start";
+            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            // 
+            // selectedFolderTextbox
+            // 
+            this.selectedFolderTextbox.Location = new System.Drawing.Point(96, 23);
+            this.selectedFolderTextbox.Name = "selectedFolderTextbox";
+            this.selectedFolderTextbox.Size = new System.Drawing.Size(578, 23);
+            this.selectedFolderTextbox.TabIndex = 1;
+            // 
             // selectFolderButton
             // 
             this.selectFolderButton.Location = new System.Drawing.Point(6, 21);
@@ -89,13 +166,6 @@
             this.selectFolderButton.Text = "Select Folder";
             this.selectFolderButton.UseVisualStyleBackColor = true;
             this.selectFolderButton.Click += new System.EventHandler(this.selectFolderButton_Click);
-            // 
-            // selectedFolderTextbox
-            // 
-            this.selectedFolderTextbox.Location = new System.Drawing.Point(96, 23);
-            this.selectedFolderTextbox.Name = "selectedFolderTextbox";
-            this.selectedFolderTextbox.Size = new System.Drawing.Size(578, 23);
-            this.selectedFolderTextbox.TabIndex = 1;
             // 
             // betterFolderBrowser1
             // 
@@ -125,75 +195,6 @@
             this.unicodeOrigin.Name = "unicodeOrigin";
             this.unicodeOrigin.Size = new System.Drawing.Size(121, 21);
             this.unicodeOrigin.TabIndex = 3;
-            // 
-            // brokenTextBox
-            // 
-            this.brokenTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.brokenTextBox.Location = new System.Drawing.Point(11, 37);
-            this.brokenTextBox.Name = "brokenTextBox";
-            this.brokenTextBox.Size = new System.Drawing.Size(329, 180);
-            this.brokenTextBox.TabIndex = 0;
-            this.brokenTextBox.Text = "";
-            this.brokenTextBox.TextChanged += new System.EventHandler(this.brokenTextBox_TextChanged);
-            // 
-            // fixedTextBox
-            // 
-            this.fixedTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.fixedTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.fixedTextBox.Location = new System.Drawing.Point(346, 37);
-            this.fixedTextBox.Name = "fixedTextBox";
-            this.fixedTextBox.ReadOnly = true;
-            this.fixedTextBox.Size = new System.Drawing.Size(329, 180);
-            this.fixedTextBox.TabIndex = 1;
-            this.fixedTextBox.Text = "";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Broken text:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(343, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 15);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Fixed Text: ";
-            // 
-            // startButton
-            // 
-            this.startButton.Enabled = false;
-            this.startButton.Location = new System.Drawing.Point(6, 50);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(668, 32);
-            this.startButton.TabIndex = 2;
-            this.startButton.Text = "Start";
-            this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
-            // 
-            // folderRenameOutput
-            // 
-            this.folderRenameOutput.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.folderRenameOutput.Location = new System.Drawing.Point(10, 107);
-            this.folderRenameOutput.Name = "folderRenameOutput";
-            this.folderRenameOutput.ReadOnly = true;
-            this.folderRenameOutput.Size = new System.Drawing.Size(664, 190);
-            this.folderRenameOutput.TabIndex = 3;
-            this.folderRenameOutput.Text = "";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 89);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 15);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Output:";
             // 
             // Form1
             // 

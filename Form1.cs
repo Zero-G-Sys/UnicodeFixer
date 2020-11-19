@@ -85,6 +85,7 @@ namespace UnicodeFixer
                 string restoredFileName = "";
 
                 DirectoryInfo d = new DirectoryInfo(selectedFolderTextbox.Text);
+                DirectoryInfo[] subdirectories = d.GetDirectories("*", SearchOption.AllDirectories);
                 FileInfo[] infos = d.GetFiles("*", SearchOption.AllDirectories); // AllDirectories for subfolders
 
                 foreach (FileInfo f in infos)
@@ -98,8 +99,28 @@ namespace UnicodeFixer
                     {
                         File.Move(f.FullName, f.FullName.Replace(originalFileName, restoredFileName));
 
-                        folderRenameOutput.AppendText("-\"" + f.FullName + "\" changed to \"" +
+                        // Output text
+                        folderRenameOutput.AppendText("-\"" + f.FullName + "\" file changed to \"" +
                             f.FullName.Replace(originalFileName, restoredFileName) + "\"" + Environment.NewLine);
+
+                        // Fix output text font change when displying unicode
+                        folderRenameOutput.Font = new Font(folderRenameOutput.Font.FontFamily,
+                            folderRenameOutput.Font.Size, folderRenameOutput.Font.Style);
+                    }
+                }
+
+                foreach (DirectoryInfo subdir in subdirectories)
+                {
+                    originalFileName = subdir.Name;
+                    restoredFileName = RestoreUnicode(subdir.Name);
+
+                    if (!originalFileName.Equals(restoredFileName) && !restoredFileName.Contains("?"))
+                    {
+                        Directory.Move(subdir.FullName, subdir.FullName.Replace(originalFileName, restoredFileName));
+
+                        folderRenameOutput.AppendText("-\"" + subdir.FullName + "\" directory changed to \"" +
+                            subdir.FullName.Replace(originalFileName, restoredFileName) + "\"" +
+                            Environment.NewLine);
 
                         folderRenameOutput.Font = new Font(folderRenameOutput.Font.FontFamily,
                             folderRenameOutput.Font.Size, folderRenameOutput.Font.Style);
@@ -110,6 +131,15 @@ namespace UnicodeFixer
             {
                 MessageBox.Show(ex.Message + "\n " , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // Scroll to bottom of folderOutputTextbox
+        private void folderRenameOutput_TextChanged(object sender, EventArgs e)
+        {
+            // set the current caret position to the end
+            folderRenameOutput.SelectionStart = folderRenameOutput.Text.Length;
+            // scroll it automatically
+            folderRenameOutput.ScrollToCaret();
         }
     }
 }
